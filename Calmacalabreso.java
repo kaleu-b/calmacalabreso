@@ -25,6 +25,12 @@ public class Calmacalabreso extends AdvancedRobot {
 	
 
 	public void onHitWall(HitWallEvent e) {
-	
+			/*se o robô bater numa parede, parar de se mover primeiro e depois alterar a direção na qual ele rodopia.
+		pelo menos até parar de bater na parede.*/
+		setAhead(0);
+		setTurnRight(0);
+		setTurnLeft(e.getBearing());
+		setBack(100);
+
 	}	
 }
