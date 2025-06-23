@@ -19,22 +19,19 @@ public class Calmacalabreso extends AdvancedRobot {
     	setAdjustGunForRobotTurn(true);
 	
 		while(true) {
-
 			// gira o radar infinitamente até encontrar um inimigo. depois roda todo o código dentro do evento scanned robot.
-			
 			turnRadarRightRadians(Double.POSITIVE_INFINITY);
-		
 		}
 	}
-
-
+	
 	public void onScannedRobot(ScannedRobotEvent e) {
 		double radarTurn = getHeadingRadians() + e.getBearingRadians() - getRadarHeadingRadians();
-        	setTurnRadarRightRadians(2 * Utils.normalRelativeAngle(radarTurn));
+        setTurnRadarRightRadians(2 * Utils.normalRelativeAngle(radarTurn));
 		setMaxVelocity(10);
 		setAhead( e.getBearing() + (e.getDistance() * 1.2));
 		setTurnRight(1000);
 		double absoluteBearing = getHeadingRadians() + e.getBearingRadians();
+		 double gunTurn = Utils.normalRelativeAngle(absoluteBearing - getGunHeadingRadians());
 		double bulletPower = Math.min(500 / e.getDistance(), 5);
 		double enemyVelocity = e.getVelocity();
         	if (enemyVelocity != 0) {
@@ -55,5 +52,12 @@ problema: não pensei ainda numa forma de lidar com o caso de algum inimigo que 
 	
 
 	public void onHitWall(HitWallEvent e) {
-	
+			/*se o robô bater numa parede, parar de se mover primeiro e depois alterar a direção na qual ele rodopia.
+		pelo menos até parar de bater na parede.*/
+		setAhead(0);
+		setTurnRight(0);
+		setTurnLeft(e.getBearing());
+		setBack(100);
+
+	}	
 }
