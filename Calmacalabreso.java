@@ -28,8 +28,8 @@ public class Calmacalabreso extends AdvancedRobot {
 		double radarTurn = getHeadingRadians() + e.getBearingRadians() - getRadarHeadingRadians();
         setTurnRadarRightRadians(2 * Utils.normalRelativeAngle(radarTurn));
 		setMaxVelocity(10);
-		setAhead( e.getBearing() + (e.getDistance() * 1.2));
-		setTurnRight(1000);
+		setAhead(1000);
+		setTurnRight(e.getBearing() + e.getDistance());
 		double absoluteBearing = getHeadingRadians() + e.getBearingRadians();
 		 double gunTurn = Utils.normalRelativeAngle(absoluteBearing - getGunHeadingRadians());
 		double bulletPower = Math.min(500 / e.getDistance(), 5);
